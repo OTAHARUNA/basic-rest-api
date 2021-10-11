@@ -8,12 +8,36 @@ const dbPath = "app/db/database.sqlite3"
 app.get('/api/v1/users', (req, res) => {
   //connect database
   const db = new sqlite3.Database(dbPath)
-
   db.all('SELECT * FROM users', (err, rows) => {
     // 取得した結果が返ってくる。
     res.json(rows)
   })
+  db.close()
+})
 
+// Get a user
+//:idは動的に設定ができる
+app.get('/api/v1/users/:id', (req, res) => {
+  //connect database
+  const db = new sqlite3.Database(dbPath)
+  const id = req.params.id
+//``にする事でJSの構文を使うことができる
+  db.get(`SELECT * FROM users WHERE id = ${id}`, (err, row) => {
+    // 取得した結果が返ってくる。
+    res.json(row)
+  })
+  db.close()
+})
+
+// Search users matching keywords
+app.get('/api/v1/search', (req, res) => {
+  //connect database
+  const db = new sqlite3.Database(dbPath)
+  const keywords = req.query.q
+  db.get(`SELECT * FROM users WHERE name LIKE "%${keywords}%"`, (err, rows) => {
+    // 取得した結果が返ってくる。
+    res.json(rows)
+  })
   db.close()
 })
 // 指定している人がいたらその人のポート番号使ってローカルサーバー立ち上げる
