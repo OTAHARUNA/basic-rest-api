@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ONEOKROCK</title>
+  <!-- Load scripts -->
+  <!-- 読み込む順番も大切 -->
+  <script src="js/search.js" defer></script>
+  <script src="js/users.js" defer></script>
+  <script src="js/index.js" defer></script>
+</head>
+<body>
+  <main>
+    <h1>ONEOKROCKメンバー管理</h1>
+    <label for="search">メンバー名で検索</label>
+    <input type="text" id="search" />
+    <button id="search-btn">検索</button>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>メンバー名</th>
+          <th>プロフィール</th>
+          <th>誕生日</th>
+          <th>登録日時</th>
+          <th>更新日時</th>
+        </tr>
+      </thead>
+      <!-- API実行結果を元に取得した結果を出力 -->
+      <tbody id="users-list">
+
+      </tbody>
+    </table>
+
+  </main>
+</body>
+</html>
