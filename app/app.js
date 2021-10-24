@@ -1,7 +1,11 @@
 const express = require('express')
 const app = express()
 const sqlite3 = require('sqlite3')
+const path = require('path')
+
 const dbPath = "app/db/database.sqlite3"
+// pathモジュールのメソッド第一引数のディレクトリとその後のディレクトリをつなげる。app.jsが所属しているパスを指定：__dirname 第二引数：publicディレクトリ内：静的ファイルの置き場所になる
+app.use(express.static(path.join(__dirname, 'public')))
 
 // Get all users
 //getメソッドを投げたときに実行する関数を作成
@@ -34,7 +38,8 @@ app.get('/api/v1/search', (req, res) => {
   //connect database
   const db = new sqlite3.Database(dbPath)
   const keywords = req.query.q
-  db.get(`SELECT * FROM users WHERE name LIKE "%${keywords}%"`, (err, rows) => {
+  // db.getだとデータ一つしか取得できない
+  db.all(`SELECT * FROM users WHERE name LIKE "%${keywords}%"`, (err, rows) => {
     // 取得した結果が返ってくる。
     res.json(rows)
   })
