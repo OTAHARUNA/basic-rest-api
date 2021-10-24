@@ -14,6 +14,7 @@ const searchModule = (() => {
 
       for (let i = 0; i < result.length; i++) {
         const user = result[i]
+        // 配列に追加していくため加算+=
         body += `<tr>
                 <td>${user.id}</td>
                 <td>${user.name}</td>
@@ -23,7 +24,7 @@ const searchModule = (() => {
                 <td>${user.updated_at}</td>
               </tr>`
       }
-      // bodyに与えた値をusers-listに与える事ができる
+      // uesrs-listにbodyの中身を入れてあげる
       document.getElementById('users-list').innerHTML = body
     }
   }
