@@ -53,6 +53,23 @@ app.get('/api/v1/search', (req, res) => {
   })
   db.close()
 })
+
+// 関数の共通化
+const run = async (sql, db, res, message) => {
+  return new Promise((resolve, reject) => {
+    db.run(sql, (err) => {
+      // エラーが発生したときステータスを返す
+      if (err) {
+        res.status(500).send(err) //SQL失敗→サーバーエラー
+        return reject();
+      } else {
+        res.json({message: message})
+        return resolve()
+      }
+    })
+  })
+}
+
 //Create a new user
 // 今までapp.getでGETメソッドを作っていたが下記からPOSTメソッド
 app.post('/api/v1/users', async (req, res) => {
@@ -62,30 +79,54 @@ app.post('/api/v1/users', async (req, res) => {
   const name = req.body.name
   const profile = req.body.profile ? req.body.profile : "" //三項演算子
   const dateOfBirth = req.body.date_of_birth ? req.body.date_of_birth : ""
-  // クエリを投げる為に関数を作成する
-  const run = async (sql) => {
-    // resolve()かreject()が実行完了されるまで待つ 非同期処理になる為クエリ投げて結果返ってくるまでしっかりと待ちたい為、Promise関数を使う
-    return new Promise((resolve, reject) => {
-      // sqlite3のrunメソッドを実行していく
-      db.run(sql, (err) => {
-        // エラーが発生したときステータスを返す
-        if (err) {
-          res.status(500).send(err) //SQL失敗→サーバーエラー
-          return reject();
-        } else {
-          res.json({message: "新規ユーザーを作成しました"})
-          return resolve()
-        }
-      });
-    })
-  }
 
-  // asyncをしてしてあげているからawaitを使えるようになる
-  // ``で囲ってあげることで$で囲われた箇所がJSの世界になる
   // 上記で設定している為resolve()かreject()が返ってくるまでrunの実行を待つ
-  await run(`INSERT INTO users (name,profile,date_of_birth) VALUES ("${name}","${profile}","${dateOfBirth}")`)
+  await run(
+    `INSERT INTO users (name,profile,date_of_birth) VALUES ("${name}","${profile}","${dateOfBirth}")`,
+    db,
+    res,
+    "新規ユーザーを作成しました"
+  )
   db.close()
 })
+
+//Update user data
+app.put('/api/v1/users/:id', async (req, res) => {
+  //Connect database
+  const db = new sqlite3.Database(dbPath)
+  const id = req.params.id
+
+  // 現在のユーザー情報を取得する
+  db.get(`SELECT * FROM users WHERE id = ${id}`, async(err, row) => {
+    // 取得した結果が返ってくる。
+    const name = req.body.name ? req.body.name : row.name
+    const profile = req.body.profile ? req.body.profile : row.profile
+    const dateOfBirth = req.body.date_of_birth ? req.body.date_of_birth : row.date_of_birth
+
+    await run(
+      `UPDATE users SET name="${name}",profile="${profile}",date_of_birth="${dateOfBirth}" WHERE id = ${id}`,
+      db,
+      res,
+      "ユーザー情報を更新しました"
+    )
+  })
+  db.close()
+})
+//Delete user data
+app.delete('/api/v1/users/:id', async (req, res) => {
+  //Connect database
+  const db = new sqlite3.Database(dbPath)
+  const id = req.params.id
+
+  await run(
+    `DELETE FROM users WHERE id = ${id}`,
+    db,
+    res,
+    "ユーザーを削除しました"
+  )
+  db.close()
+})
+
 
 // 指定している人がいたらその人のポート番号使ってローカルサーバー立ち上げる
 const port = process.env.PORT || 3000;
