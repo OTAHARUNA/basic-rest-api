@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ONEOKROCK</title>
+  <!-- Load scripts -->
+  <!-- 読み込む順番も大切 -->
+  <script src="js/search.js" defer></script>
+  <script src="js/users.js" defer></script>
+  <script src="js/index.js" defer></script>
+  <style>
+    td{
+      width:100px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>ONEOKROCKメンバー管理</h1>
+    <table>
+      <tr>
+        <th>
+          <td>
+            <label for="id">ID</label>
+          </td>
+          <td>
+            <input type="text" id="uid" value="自動採番されます" readonly />
+          </td>
+        </th>
+      </tr>
+    </table>
+    <table>
+      <tr>
+        <th>
+          <td>
+            <label for="name">メンバー名</label>
+          </td>
+          <td>
+            <input type="text" id="name" />
+          </td>
+        </th>
+      </tr>
+    </table><table>
+      <tr>
+        <th>
+          <td>
+            <label for="id">プロフィール</label>
+          </td>
+          <td>
+            <input type="text" id="profile" />
+          </td>
+        </th>
+      </tr>
+    </table><table>
+      <tr>
+        <th>
+          <td>
+            <label for="id">誕生日</label>
+          </td>
+          <td>
+            <input type="text" id="date_of_birth" />
+          </td>
+        </th>
+      </tr>
+    </table>
+    <div style="width:400px;text-align: right;">
+      <button id="save-btn">保存する</button>
+      <button id="cancel-btn">キャンセル</button>
+    </div>
+
+  </main>
+</body>
+</html>
