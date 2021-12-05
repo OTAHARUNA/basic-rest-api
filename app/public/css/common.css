@@ -14,8 +14,8 @@
       -webkit-text-fill-color: transparent;
       /*くり抜いた部分は背景を表示*/
       color: black;
-      -webkit-text-stroke: 0.5px white;
-      text-stroke: 0.5px white;
+      -webkit-text-stroke: 0.5px white; /*文字くりぬき*/
+      text-stroke: 0.5px white; /*文字くりぬき*/
     }
 
     table {
