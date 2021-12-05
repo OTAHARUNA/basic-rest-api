@@ -1,0 +1,62 @@
+    body {
+      background-image: url("/image/oneokrock_back.png");
+      background-size: cover;
+      background-attachment: fixed;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    }
+
+    #title {
+      color: yellow;
+      background: -webkit-linear-gradient(10deg, #E080A0, #800000);
+      /*degとは角度の"度"*/
+      -webkit-background-clip: text;
+      /*テキストでくり抜く*/
+      -webkit-text-fill-color: transparent;
+      /*くり抜いた部分は背景を表示*/
+      color: black;
+      -webkit-text-stroke: 0.5px white;
+      text-stroke: 0.5px white;
+    }
+
+    table {
+      margin: auto;
+      color: black;
+      -webkit-text-stroke: 0.5px white;
+      text-stroke: 0.5px white;
+    }
+
+    td {
+      width: 100px;
+    }
+
+    .center {
+      text-align: center;
+    }
+
+    .right {
+      text-align: right;
+    }
+
+    button {
+      cursor: pointer;
+      appearance: none;
+      color: white;
+      background: -webkit-linear-gradient(10deg, #E080A0, #9370DB, #FFFF44);
+      border-radius: 10px;
+      border: purple;
+    }
+
+    a {
+      text-decoration: none;
+      /* 下線を無効化 */
+      cursor: pointer;
+      appearance: none;
+      color: white;
+      background: -webkit-linear-gradient(10deg, #E080A0, #9370DB, #FFFF44);
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: purple;
+      font-weight: bolder;
+    }
