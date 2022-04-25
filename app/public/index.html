@@ -23,24 +23,26 @@
   <main>
     <div class="center">
       <label for="search">メンバー名で検索</label>
-      <input type="text" id="search" />
+      <input type="text" id="search" onclick='search_af' />
       <button id="search-btn">検索</button>
       <a href="create.html">ユーザー新規作成</a>
-      <table>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>メンバー名</th>
-            <th>プロフィール</th>
-            <th>誕生日</th>
-            <th>登録日時</th>
-            <th>更新日時</th>
-          </tr>
-        </thead>
-        <!-- API実行結果を元に取得した結果を出力 -->
-        <tbody id="users-list">
-        </tbody>
-      </table>
+      <div id="search_af">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>メンバー名</th>
+              <th>プロフィール</th>
+              <th>誕生日</th>
+              <th>登録日時</th>
+              <th>更新日時</th>
+            </tr>
+          </thead>
+          <!-- API実行結果を元に取得した結果を出力 -->
+          <tbody id="users-list">
+          </tbody>
+        </table>
+      </div>
     </div>
 
   </main>
